@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://media.discordapp.net/attachments/1264511047746977856/1272211246296338583/grgerhrthrt.webp?ex=66ba268d&is=66b8d50d&hm=18225d609de8c392aa5e1c2e6bb99298ea28e0be7ef6936f7b56377126ab9dd9&=&format=webp') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(5px);
+            z-index: -1;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 20px;
+        }
+        .frame {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            text-align: center;
+        }
+        .item-list {
+            min-height: 150px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .item-list div {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .item-list img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+        .item-list .item-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #007BFF;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 14px;
+            line-height: 1;
+            text-align: center;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .buttons button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .buttons button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .scrollable-frame {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .scrollable-frame .content {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+        .scrollable-section {
+            height: calc(100% - 40px); /* Adjust based on header/footer height */
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            margin: 0 0 10px;
+        }
+        .scrollable-frame .section button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px;
+        }
+        .scrollable-frame .section button img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .scrollable-frame .section button img:hover {
+            transform: scale(1.1);
+        }
+        .scrollable-frame .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff5c5c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .item-list div:hover {
+            background: #f8d7da;
+        }
+        .item-list div:hover .item-count {
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="frame" id="offeringFrame">
+            <h2>Offering</h2>
+            <div class="item-list" id="offeringItems"></div>
+            <div class="buttons">
+                <button onclick="showScrollableFrame('offering')">Add Item</button>
+                <button onclick="clearItems('offering')">Clear All</button>
+            </div>
+        </div>
+        <div class="frame" id="lookingForFrame">
+            <h2>Looking For</h2>
+            <div class="item-list" id="lookingForItems"></div>
+            <div class="buttons">
+                <button onclick="showScrollableFrame('lookingFor')">Add Item</button>
+                <button onclick="clearItems('lookingFor')">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable-frame" id="offeringScrollable" style="display: none;">
+        <div class="content">
+            <button class="close-btn" onclick="hideScrollableFrame('offering')">×</button>
+            <div class="scrollable-section">
+                <div class="section">
+                    <h3>Stickers</h3>
+                    <button onclick="addItem('offering', 'item1', 'https://media.discordapp.net/attachments/1264511047746977856/1272192974012289056/rsgtehtrfrt__1_-removebg-preview.png?ex=66ba1589&amp;is=66b8c409&amp;hm=32f2e095d344ed94f4d8fcb5f42345cc6f05ebdb0aacefd5c1e321850ce77fa7&amp;=&amp;format=webp&amp;quality=lossless')">
+                        <img src="https://media.discordapp.net/attachments/1264511047746977856/1272192974012289056/rsgtehtrfrt__1_-removebg-preview.png?ex=66ba1589&amp;is=66b8c409&amp;hm=32f2e095d344ed94f4d8fcb5f42345cc6f05ebdb0aacefd5c1e321850ce77fa7&amp;=&amp;format=webp&amp;quality=lossless" alt="Item 1">
+                    </button>
+                    <!-- Add more sticker items here -->
+                </div>
+                <div class="section">
+                    <h3>Others</h3>
+                    <button onclick="addNonStackableItem('offering', 'https://media.discordapp.net/attachments/1264511047746977856/1272212364829134888/Any.png?ex=66ba2798&amp;is=66b8d618&amp;hm=dae153df8a41b2676bcf2b76154b3146a1a2171da15e325e7816b51f893f91fb&amp;=&amp;format=webp&amp;quality=lossless')">
+                        <img src="https://media.discordapp.net/attachments/1264511047746977856/1272212364829134888/Any.png?ex=66ba2798&amp;is=66b8d618&amp;hm=dae153df8a41b2676bcf2b76154b3146a1a2171da15e325e7816b51f893f91fb&amp;=&amp;format=webp&amp;quality=lossless" alt="Non-Stackable Item">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable-frame" id="lookingForScrollable" style="display: none;">
+        <div class="content">
+            <button class="close-btn" onclick="hideScrollableFrame('lookingFor')">×</button>
+            <div class="scrollable-section">
+                <div class="section">
+                    <h3>Stickers</h3>
+                    <button onclick="addItem('lookingFor', 'item1', 'https://media.discordapp.net/attachments/1264511047746977856/1272192974012289056/rsgtehtrfrt__1_-removebg-preview.png?ex=66ba1589&amp;is=66b8c409&amp;hm=32f2e095d344ed94f4d8fcb5f42345cc6f05ebdb0aacefd5c1e321850ce77fa7&amp;=&amp;format=webp&amp;quality=lossless')">
+                        <img src="https://media.discordapp.net/attachments/1264511047746977856/1272192974012289056/rsgtehtrfrt__1_-removebg-preview.png?ex=66ba1589&amp;is=66b8c409&amp;hm=32f2e095d344ed94f4d8fcb5f42345cc6f05ebdb0aacefd5c1e321850ce77fa7&amp;=&amp;format=webp&amp;quality=lossless" alt="Item 1">
+                    </button>
+                    <!-- Add more sticker items here -->
+                </div>
+                <div class="section">
+                    <h3>Others</h3>
+                    <button onclick="addNonStackableItem('lookingFor', 'https://media.discordapp.net/attachments/1264511047746977856/1272212364829134888/Any.png?ex=66ba2798&amp;is=66b8d618&amp;hm=dae153df8a41b2676bcf2b76154b3146a1a2171da15e325e7816b51f893f91fb&amp;=&amp;format=webp&amp;quality=lossless')">
+                        <img src="https://media.discordapp.net/attachments/1264511047746977856/1272212364829134888/Any.png?ex=66ba2798&amp;is=66b8d618&amp;hm=dae153df8a41b2676bcf2b76154b3146a1a2171da15e325e7816b51f893f91fb&amp;=&amp;format=webp&amp;quality=lossless" alt="Non-Stackable Item">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showScrollableFrame(type) {
+            document.querySelectorAll('.scrollable-frame').forEach(frame => {
+                frame.style.display = 'none';
+            });
+            document.getElementById(type + 'Scrollable').style.display = 'flex';
+        }
+
+        function hideScrollableFrame(type) {
+            document.getElementById(type + 'Scrollable').style.display = 'none';
+        }
+
+        function addItem(type, itemId, itemImage) {
+            var itemList = document.getElementById(type + 'Items');
+            var existingItem = itemList.querySelector(`[data-id="${itemId}"]`);
+
+            if (existingItem) {
+                var countElement = existingItem.querySelector('.item-count');
+                var currentCount = parseInt(countElement.innerText);
+                countElement.innerText = currentCount + 1;
+            } else {
+                var newItemDiv = document.createElement('div');
+                newItemDiv.className = 'item';
+                newItemDiv.dataset.id = itemId;
+                newItemDiv.innerHTML = `
+                    <img src="${itemImage}" alt="Item">
+                    <div class="item-count">1</div>
+                `;
+                itemList.appendChild(newItemDiv);
+            }
+        }
+
+        function addNonStackableItem(type, itemImage) {
+            var itemList = document.getElementById(type + 'Items');
+            var newItemDiv = document.createElement('div');
+            newItemDiv.className = 'item';
+            newItemDiv.innerHTML = `
+                <img src="${itemImage}" alt="Non-Stackable Item">
+            `;
+            itemList.appendChild(newItemDiv);
+        }
+
+        function clearItems(type) {
+            document.getElementById(type + 'Items').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
