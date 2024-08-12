@@ -57,19 +57,23 @@
             height: 75px;
             border-radius: 10px;
         }
-        .item-list .item-count {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: transparent;
-            color: #000;
-            font-size: 14px;
-            padding: 2px 4px;
-            margin: 2px;
-            text-align: center;
-            line-height: 1;
-            pointer-events: none;
-        }
+.item-list .item-count {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: transparent;
+    color: #000000; /* Set the text color to black */
+    font-size: 14px;
+    padding: 2px 4px;
+    margin: 2px;
+    text-align: center;
+    line-height: 1;
+    pointer-events: none;
+    font-weight: bold; /* Make the text bold */
+    -webkit-text-stroke: 1px #FFFFFF; /* Add a white stroke to the text */
+    text-stroke: 1px #FFFFFF; /* For non-webkit browsers */
+}
+
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -195,6 +199,12 @@
                 <button onclick="addItem('offering', 'item4', 'https://media.discordapp.net/attachments/1264511047746977856/1272257658958905415/rghrthtrhrt_1.png?ex=66bafa87&is=66b9a907&hm=490181564b6a10072dcf4f6c2ccc80824ff2876280e1bc46e3f63b7eb1f9bff1&=&format=webp&quality=lossless')">
                     <img src="https://media.discordapp.net/attachments/1264511047746977856/1272257658958905415/rghrthtrhrt_1.png?ex=66bafa87&is=66b9a907&hm=490181564b6a10072dcf4f6c2ccc80824ff2876280e1bc46e3f63b7eb1f9bff1&=&format=webp&quality=lossless" alt="Item 4">
                 </button>
+				<button onclick="addItem('offering', 'item5', 'https://media.discordapp.net/attachments/1264511047746977856/1272205594664763403/Bee-removebg-preview.png?ex=66bb72ca&is=66ba214a&hm=0b7b0be75c829c7d76438224d5b71743ce4a4b89a11f4b4609bce89fd0b8492c&=&format=webp&quality=lossless')">
+                    <img src="https://media.discordapp.net/attachments/1264511047746977856/1272205594664763403/Bee-removebg-preview.png?ex=66bb72ca&is=66ba214a&hm=0b7b0be75c829c7d76438224d5b71743ce4a4b89a11f4b4609bce89fd0b8492c&=&format=webp&quality=lossless" alt="Item 4">
+                </button>
+				<button onclick="addItem('offering', 'item6', 'https://media.discordapp.net/attachments/1264511047746977856/1272524006720798750/hrtytytyutyuktyuk_1.png?ex=66bb49d5&is=66b9f855&hm=2751a120797ad499a942b971564cc357eacb42f03c64dbf74bd6c7d080059db7&=&format=webp&quality=lossless&width=810&height=810')">
+                    <img src="https://media.discordapp.net/attachments/1264511047746977856/1272524006720798750/hrtytytyutyuktyuk_1.png?ex=66bb49d5&is=66b9f855&hm=2751a120797ad499a942b971564cc357eacb42f03c64dbf74bd6c7d080059db7&=&format=webp&quality=lossless&width=810&height=810" alt="Item 4">
+                </button>
             </div>
         </div>
     </div>
@@ -215,6 +225,12 @@
                 </button>
                 <button onclick="addItem('lookingFor', 'item4', 'https://media.discordapp.net/attachments/1264511047746977856/1272257658958905415/rghrthtrhrt_1.png?ex=66bafa87&is=66b9a907&hm=490181564b6a10072dcf4f6c2ccc80824ff2876280e1bc46e3f63b7eb1f9bff1&=&format=webp&quality=lossless')">
                     <img src="https://media.discordapp.net/attachments/1264511047746977856/1272257658958905415/rghrthtrhrt_1.png?ex=66bafa87&is=66b9a907&hm=490181564b6a10072dcf4f6c2ccc80824ff2876280e1bc46e3f63b7eb1f9bff1&=&format=webp&quality=lossless" alt="Item 4">
+                </button>
+				<button onclick="addItem('lookingFor', 'item5', 'https://media.discordapp.net/attachments/1264511047746977856/1272205594664763403/Bee-removebg-preview.png?ex=66bb72ca&is=66ba214a&hm=0b7b0be75c829c7d76438224d5b71743ce4a4b89a11f4b4609bce89fd0b8492c&=&format=webp&quality=lossless')">
+                    <img src="https://media.discordapp.net/attachments/1264511047746977856/1272205594664763403/Bee-removebg-preview.png?ex=66bb72ca&is=66ba214a&hm=0b7b0be75c829c7d76438224d5b71743ce4a4b89a11f4b4609bce89fd0b8492c&=&format=webp&quality=lossless" alt="Item 4">
+                </button>
+				<button onclick="addItem('lookingFor', 'item6', 'https://media.discordapp.net/attachments/1264511047746977856/1272524006720798750/hrtytytyutyuktyuk_1.png?ex=66bb49d5&is=66b9f855&hm=2751a120797ad499a942b971564cc357eacb42f03c64dbf74bd6c7d080059db7&=&format=webp&quality=lossless&width=810&height=810')">
+                    <img src="https://media.discordapp.net/attachments/1264511047746977856/1272524006720798750/hrtytytyutyuktyuk_1.png?ex=66bb49d5&is=66b9f855&hm=2751a120797ad499a942b971564cc357eacb42f03c64dbf74bd6c7d080059db7&=&format=webp&quality=lossless&width=810&height=810" alt="Item 4">
                 </button>
             </div>
         </div>
